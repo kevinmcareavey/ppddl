@@ -11,6 +11,11 @@ public class AtomicFormulaSkeleton {
 		this.setPredicate(predicate);
 		this.setVariables(variables);
 	}
+	
+	public AtomicFormulaSkeleton(Predicate predicate) {
+		this.setPredicate(predicate);
+		this.setVariables(new TypedList<Variable>());
+	}
 
 	public Predicate getPredicate() {
 		return predicate;
@@ -30,7 +35,12 @@ public class AtomicFormulaSkeleton {
 	
 	@Override
 	public String toString() {
-		return "(" + predicate.toString() + " " + variables.toString() + ")";
+		String output = "(" + predicate.toString();
+		if(!this.getVariables().isEmpty()) {
+			output += " " + variables.toString();
+		}
+		output += ")";
+		return output;
 	}
 	
 }
