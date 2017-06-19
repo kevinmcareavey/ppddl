@@ -3,11 +3,11 @@ package ppddl.goal;
 import ppddl.Goal;
 import ppddl.MetricSpec;
 
-public class MericGoal extends Goal {
+public class MetricGoal extends Goal {
 	
 	private MetricSpec metricSpec;
 	
-	public MericGoal(MetricSpec metricSpec) {
+	public MetricGoal(MetricSpec metricSpec) {
 		this.setMetricSpec(metricSpec);
 	}
 	

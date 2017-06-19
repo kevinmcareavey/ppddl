@@ -12,7 +12,6 @@ import ppddl.FunctionSkeleton;
 import ppddl.FunctionSymbol;
 import ppddl.GD;
 import ppddl.Goal;
-import ppddl.GoalSpec;
 import ppddl.Init;
 import ppddl.Name;
 import ppddl.Predicate;
@@ -25,13 +24,14 @@ import ppddl.Term;
 import ppddl.TypedList;
 import ppddl.ainitel.InitialProbabilisticConjunction;
 import ppddl.ainitel.InitialProbabilisticPInitEl;
-import ppddl.fexp.FHead;
+import ppddl.fexp.Function;
 import ppddl.fexp.MyNumber;
 import ppddl.fexp.Negative;
 import ppddl.fexp.binaryop.Addition;
 import ppddl.fexp.binaryop.Division;
 import ppddl.fexp.binaryop.Multiplication;
 import ppddl.fexp.binaryop.Subtraction;
+import ppddl.fexp.function.FHead;
 import ppddl.fexp.mynumber.Probability;
 import ppddl.functiontypedlist.FunctionsDef;
 import ppddl.gd.fcomp.EQ;
@@ -47,7 +47,8 @@ import ppddl.gd.formula.nary.Conjunction;
 import ppddl.gd.formula.nary.Disjunction;
 import ppddl.gd.formula.unary.Atom;
 import ppddl.gd.formula.unary.Negation;
-import ppddl.goal.GDGoal;
+import ppddl.goal.gdgoal.GDMetricGoal;
+import ppddl.goalspec.GoalRewardSpec;
 import ppddl.initel.InitialProbabilistic;
 import ppddl.initel.pinitel.InitialAtom;
 import ppddl.initel.pinitel.InitialFunction;
@@ -250,10 +251,10 @@ public class Main {
 		gds.add(new Universal(tl1, new Atom(new Predicate("p1"))));
 		
 		gds.add(new EQ(new MyNumber(1), new MyNumber(2)));
-		gds.add(new EQ(new MyNumber(1), new FHead<Term>(new FunctionSymbol("f1"))));
-		gds.add(new EQ(new MyNumber(1), new FHead<Term>(new FunctionSymbol("f1"), new Constant("c1"))));
-		gds.add(new EQ(new MyNumber(1), new FHead<Term>(new FunctionSymbol("f1"), new Variable("v1"))));
-		gds.add(new EQ(new MyNumber(1), new FHead<Term>(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))));
+		gds.add(new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"))));
+		gds.add(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"))));
+		gds.add(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Variable("v1"))));
+		gds.add(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))));
 		gds.add(new LE(new MyNumber(1), new MyNumber(2)));
 		gds.add(new LT(new MyNumber(1), new MyNumber(2)));
 		gds.add(new GT(new MyNumber(1), new MyNumber(2)));
@@ -272,9 +273,9 @@ public class Main {
 		
 		effects.add(new PositiveAtomicEffect(new Predicate("p1")));
 		effects.add(new NegativeAtomicEffect(new Predicate("p1")));
-		effects.add(new Assign(new FHead<Term>(new FunctionSymbol("f1")), new MyNumber(1)));
-		effects.add(new ScaleUp(new FHead<Term>(new FunctionSymbol("f1")), new MyNumber(1)));
-		effects.add(new ScaleDown(new FHead<Term>(new FunctionSymbol("f1")), new MyNumber(1)));
+		effects.add(new Assign(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
+		effects.add(new ScaleUp(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
+		effects.add(new ScaleDown(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
 		effects.add(new Increase(new MyNumber(1)));
 		effects.add(new Decrease(new MyNumber(1)));
 		effects.add(new ConjunctiveEffect(new PositiveAtomicEffect(new Predicate("p1")), new PositiveAtomicEffect(new Predicate("p2"))));
@@ -302,7 +303,7 @@ public class Main {
 		ProbEffect pe1 = new ProbEffect(new Probability(0.8), new PositiveAtomicEffect(new Predicate("p1")));
 		ProbEffect pe2 = new ProbEffect(new Probability(0.2), new PositiveAtomicEffect(new Predicate("p1")));
 		
-		structureDefs.add(new ActionDef(new ActionSymbol("as1"), new ActionDefBody(new EQ(new MyNumber(1), new FHead<Term>(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))), new Probabilistic(pe1, pe2))));
+		structureDefs.add(new ActionDef(new ActionSymbol("as1"), new ActionDefBody(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))), new Probabilistic(pe1, pe2))));
 		
 		return structureDefs;
 	}
@@ -340,8 +341,8 @@ public class Main {
 		init.add(new InitialAtom(new AtomicFormula<Term>(new Predicate("p1"))));
 		init.add(new InitialAtom(new AtomicFormula<Term>(new Predicate("p2"), new Constant("c1"))));
 		init.add(new InitialAtom(new AtomicFormula<Term>(new Predicate("p3"), new Variable("v1"))));
-		init.add(new InitialFunction(new FHead<Constant>(new FunctionSymbol("f1")), new MyNumber(1)));
-		init.add(new InitialFunction(new FHead<Constant>(new FunctionSymbol("f1"), new Constant("c2")), new MyNumber(2)));
+		init.add(new InitialFunction(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
+		init.add(new InitialFunction(new FHead(new FunctionSymbol("f1"), new Constant("c2")), new MyNumber(2)));
 		
 		InitialProbabilisticPInitEl ip1 = new InitialProbabilisticPInitEl(new InitialAtom(new AtomicFormula<Term>(new Predicate("p4"))));
 		InitialProbabilisticPInitEl ip2 = new InitialProbabilisticPInitEl(new InitialAtom(new AtomicFormula<Term>(new Predicate("p5"))));
@@ -353,9 +354,9 @@ public class Main {
 		return init;
 	}
 	
-	public static Goal goal() {
-		GD gd1 = new EQ(new MyNumber(1), new FHead<Term>(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1")));
-		Goal goal = new GDGoal(new GoalSpec(gd1, new MyNumber(1)), new Maximize(FHead.REWARD));
+	public static Goal goal() throws Exception {
+		GD gd1 = new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1")));
+		Goal goal = new GDMetricGoal(new GoalRewardSpec(gd1, new MyNumber(1)), new Maximize(FHead.REWARD));
 		return goal;
 	}
 	

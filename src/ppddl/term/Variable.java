@@ -23,6 +23,11 @@ public class Variable extends Term implements Typable {
 	public void setName(Name name) {
 		this.name = name;
 	}
+	
+	@Override
+	public boolean isGround() {
+		return false;
+	}
 
 	@Override
 	public String toString() {

@@ -4,7 +4,10 @@ public abstract class MetricSpec {
 	
 	private FExp child;
 	
-	public MetricSpec(FExp child) {
+	public MetricSpec(FExp child) throws Exception {
+		if(!child.isGround()) {
+			throw new Exception("optimization expressions must be ground");
+		}
 		this.setChild(child);
 	}
 	

@@ -1,16 +1,15 @@
 package ppddl.initel.pinitel;
 
-import ppddl.fexp.FHead;
+import ppddl.fexp.Function;
 import ppddl.fexp.MyNumber;
 import ppddl.gd.fcomp.EQ;
 import ppddl.initel.PInitEl;
-import ppddl.term.Constant;
 
 public class InitialFunction extends PInitEl {
 	
 	private EQ child;
 	
-	public InitialFunction(FHead<Constant> leftChild, MyNumber rightChild) {
+	public InitialFunction(Function leftChild, MyNumber rightChild) {
 		this.setChild(leftChild, rightChild);
 	}
 
@@ -18,7 +17,7 @@ public class InitialFunction extends PInitEl {
 		return child;
 	}
 
-	public void setChild(FHead<Constant> leftChild, MyNumber rightChild) {
+	public void setChild(Function leftChild, MyNumber rightChild) {
 		this.child = new EQ(leftChild, rightChild);
 	}
 

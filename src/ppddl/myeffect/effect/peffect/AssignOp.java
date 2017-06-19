@@ -1,25 +1,24 @@
 package ppddl.myeffect.effect.peffect;
 
 import ppddl.FExp;
-import ppddl.Term;
-import ppddl.fexp.FHead;
+import ppddl.fexp.Function;
 import ppddl.myeffect.effect.PEffect;
 
 public abstract class AssignOp extends PEffect {
 	
-	private FHead<Term> left;
+	private Function left;
 	private FExp right;
 	
-	public AssignOp(FHead<Term> left, FExp right) {
+	public AssignOp(Function left, FExp right) {
 		this.setLeft(left);
 		this.setRight(right);
 	}
 
-	public FHead<Term> getLeft() {
+	public Function getLeft() {
 		return left;
 	}
 
-	public void setLeft(FHead<Term> left) {
+	public void setLeft(Function left) {
 		this.left = left;
 	}
 

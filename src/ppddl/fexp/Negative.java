@@ -17,6 +17,11 @@ public class Negative extends FExp {
 	public void setChild(FExp child) {
 		this.child = child;
 	}
+	
+	@Override
+	public boolean isGround() {
+		return this.getChild().isGround();
+	}
 
 	@Override
 	public String toString() {

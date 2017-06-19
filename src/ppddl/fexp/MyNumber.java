@@ -19,6 +19,11 @@ public class MyNumber extends FExp {
 	}
 	
 	@Override
+	public boolean isGround() {
+		return true;
+	}
+	
+	@Override
 	public String toString() {
 		return this.getNumber().toString();
 	}

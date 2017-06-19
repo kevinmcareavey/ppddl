@@ -5,7 +5,7 @@ import ppddl.MetricSpec;
 
 public class Maximize extends MetricSpec {
 
-	public Maximize(FExp child) {
+	public Maximize(FExp child) throws Exception {
 		super(child);
 	}
 	

@@ -29,6 +29,11 @@ public abstract class BinaryOp extends FExp {
 	}
 	
 	public abstract String getSymbol();
+	
+	@Override
+	public boolean isGround() {
+		return this.getLeftChild().isGround() && this.getRightChild().isGround();
+	}
 
 	@Override
 	public String toString() {
