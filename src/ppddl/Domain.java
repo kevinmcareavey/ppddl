@@ -14,16 +14,16 @@ public class Domain {
 	private ConstantsDef constantsDef;
 	private PredicatesDef predicatesDef;
 	private FunctionsDef functionsDef;
-	private List<StructureDef> structureDefs;
+	private List<ActionDef> actionDefs;
 	
-	public Domain(Name name, RequireDef requireDef, TypesDef typesDef, ConstantsDef constantsDef, PredicatesDef predicatesDef, FunctionsDef functionsDef, List<StructureDef> structureDefs) {
+	public Domain(Name name, RequireDef requireDef, TypesDef typesDef, ConstantsDef constantsDef, PredicatesDef predicatesDef, FunctionsDef functionsDef, List<ActionDef> actionDefs) {
 		this.setName(name);
 		this.setRequireDef(requireDef);
 		this.setTypesDef(typesDef);
 		this.setConstantsDef(constantsDef);
 		this.setPredicatesDef(predicatesDef);
 		this.setFunctionsDef(functionsDef);
-		this.setStructureDefs(structureDefs);
+		this.setActionDefs(actionDefs);
 	}
 	
 	public Domain(Name name) {
@@ -79,12 +79,12 @@ public class Domain {
 		this.functionsDef = functionsDef;
 	}
 
-	public List<StructureDef> getStructureDefs() {
-		return structureDefs;
+	public List<ActionDef> getActionDefs() {
+		return actionDefs;
 	}
 
-	public void setStructureDefs(List<StructureDef> structureDefs) {
-		this.structureDefs = structureDefs;
+	public void setActionDefs(List<ActionDef> structureDefs) {
+		this.actionDefs = structureDefs;
 	}
 
 	@Override
@@ -95,8 +95,8 @@ public class Domain {
 		output += "\n" + this.getConstantsDef().toString();
 		output += "\n" + this.getPredicatesDef().toString();
 		output += "\n" + this.getFunctionsDef().toString();
-		for(StructureDef structureDef : this.getStructureDefs()) {
-			output += "\n" + structureDef.toString();
+		for(ActionDef actionDef : this.getActionDefs()) {
+			output += "\n" + actionDef.toString();
 		}
 		output += ")";
 		return output;

@@ -1,11 +1,11 @@
 package ppddl.metricspec;
 
-import ppddl.FExp;
+import ppddl.ArithmeticExpression;
 import ppddl.MetricSpec;
 
 public class Maximize extends MetricSpec {
 
-	public Maximize(FExp child) throws Exception {
+	public Maximize(ArithmeticExpression child) throws Exception {
 		super(child);
 	}
 	

@@ -2,17 +2,17 @@ package ppddl;
 
 public class GoalSpec {
 	
-	private GD goal;
+	private Precondition goal;
 	
-	public GoalSpec(GD goal) {
+	public GoalSpec(Precondition goal) {
 		this.setGoal(goal);
 	}
 	
-	public GD getGoal() {
+	public Precondition getGoal() {
 		return goal;
 	}
 	
-	public void setGoal(GD goal) {
+	public void setGoal(Precondition goal) {
 		this.goal = goal;
 	}
 

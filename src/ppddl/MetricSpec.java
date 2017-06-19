@@ -2,20 +2,20 @@ package ppddl;
 
 public abstract class MetricSpec {
 	
-	private FExp child;
+	private ArithmeticExpression child;
 	
-	public MetricSpec(FExp child) throws Exception {
+	public MetricSpec(ArithmeticExpression child) throws Exception {
 		if(!child.isGround()) {
 			throw new Exception("optimization expressions must be ground");
 		}
 		this.setChild(child);
 	}
 	
-	public FExp getChild() {
+	public ArithmeticExpression getChild() {
 		return child;
 	}
 	
-	public void setChild(FExp child) {
+	public void setChild(ArithmeticExpression child) {
 		this.child = child;
 	}
 	

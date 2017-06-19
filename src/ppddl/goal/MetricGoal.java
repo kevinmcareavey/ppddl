@@ -21,7 +21,7 @@ public class MetricGoal extends Goal {
 
 	@Override
 	public String toString() {
-		return metricSpec.toString();
+		return this.getMetricSpec().toString();
 	}
 
 }

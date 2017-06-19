@@ -1,11 +1,11 @@
 package ppddl.metricspec;
 
-import ppddl.FExp;
+import ppddl.ArithmeticExpression;
 import ppddl.MetricSpec;
 
 public class Minimize extends MetricSpec {
 
-	public Minimize(FExp child) throws Exception {
+	public Minimize(ArithmeticExpression child) throws Exception {
 		super(child);
 	}
 

@@ -1,14 +1,14 @@
 package ppddl.goalspec;
 
-import ppddl.FExp;
-import ppddl.GD;
+import ppddl.ArithmeticExpression;
+import ppddl.Precondition;
 import ppddl.GoalSpec;
 
 public class GoalRewardSpec extends GoalSpec {
 
-	private FExp goalReward;
+	private ArithmeticExpression goalReward;
 	
-	public GoalRewardSpec(GD goal, FExp goalReward) throws Exception {
+	public GoalRewardSpec(Precondition goal, ArithmeticExpression goalReward) throws Exception {
 		super(goal);
 		if(!goalReward.isGround()) {
 			throw new Exception("goal-reward expression must be ground");
@@ -16,17 +16,17 @@ public class GoalRewardSpec extends GoalSpec {
 		this.setGoalReward(goalReward);
 	}
 	
-	public FExp getGoalReward() {
+	public ArithmeticExpression getGoalReward() {
 		return goalReward;
 	}
 	
-	public void setGoalReward(FExp goalReward) {
+	public void setGoalReward(ArithmeticExpression goalReward) {
 		this.goalReward = goalReward;
 	}
 
 	@Override
 	public String toString() {
-		return "(:goal " + this.getGoal().toString() + ") (:goal-reward " + this.getGoalReward().toString() + ")";
+		return super.toString() + " (:goal-reward " + this.getGoalReward().toString() + ")";
 	}
 
 }

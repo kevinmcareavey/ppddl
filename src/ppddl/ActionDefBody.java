@@ -1,18 +1,16 @@
 package ppddl;
 
-import ppddl.myeffect.Effect;
-
 public class ActionDefBody {
 	
-	private GD gd;
+	private Precondition gd;
 	private Effect effect;
 	
-	public ActionDefBody(GD gd, Effect effect) {
+	public ActionDefBody(Precondition gd, Effect effect) {
 		this.setGD(gd);
 		this.setEffect(effect);
 	}
 	
-	public ActionDefBody(GD gd) {
+	public ActionDefBody(Precondition gd) {
 		this.setGD(gd);
 		this.setEffect(null);
 	}
@@ -27,11 +25,11 @@ public class ActionDefBody {
 		this.setEffect(null);
 	}
 
-	public GD getGD() {
+	public Precondition getGD() {
 		return gd;
 	}
 
-	public void setGD(GD gd) {
+	public void setGD(Precondition gd) {
 		this.gd = gd;
 	}
 
