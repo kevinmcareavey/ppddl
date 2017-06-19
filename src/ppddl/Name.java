@@ -1,8 +1,6 @@
 package ppddl;
 
-import ppddl.action.Term;
-
-public class Name extends Term {
+public class Name {
 	
 	private String symbol;
 	
