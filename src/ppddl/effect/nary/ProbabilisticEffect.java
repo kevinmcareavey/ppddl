@@ -5,9 +5,9 @@ import java.util.List;
 import ppddl.annotated.AnnotatedEffect;
 import ppddl.effect.NaryEffect;
 
-public class Probabilistic extends NaryEffect<AnnotatedEffect> {
+public class ProbabilisticEffect extends NaryEffect<AnnotatedEffect> {
 	
-	public Probabilistic(List<AnnotatedEffect> arguments) throws Exception {
+	public ProbabilisticEffect(List<AnnotatedEffect> arguments) throws Exception {
 		super(arguments);
 		if(this.getChildren().size() < 2) {
 			throw new Exception("probabilistic effects need at least two children");
@@ -15,7 +15,7 @@ public class Probabilistic extends NaryEffect<AnnotatedEffect> {
 		this.validate();
 	}
 	
-	public Probabilistic(AnnotatedEffect... arguments) throws Exception {
+	public ProbabilisticEffect(AnnotatedEffect... arguments) throws Exception {
 		super(arguments);
 		if(this.getChildren().size() < 2) {
 			throw new Exception("probabilistic effects need at least two children");

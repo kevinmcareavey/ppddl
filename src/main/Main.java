@@ -5,24 +5,22 @@ import java.util.List;
 
 import ppddl.ActionDef;
 import ppddl.ActionDefBody;
-import ppddl.ActionSymbol;
-import ppddl.AtomicFormula;
-import ppddl.AtomicFormulaSkeleton;
+import ppddl.Atom;
+import ppddl.AtomSkeleton;
 import ppddl.Domain;
 import ppddl.FunctionSkeleton;
-import ppddl.FunctionSymbol;
 import ppddl.Precondition;
 import ppddl.Goal;
+import ppddl.GoalSpec;
 import ppddl.Init;
 import ppddl.Effect;
 import ppddl.Name;
-import ppddl.Predicate;
 import ppddl.PredicatesDef;
 import ppddl.Problem;
 import ppddl.RequireDef;
 import ppddl.TypedList;
 import ppddl.annotated.AnnotatedEffect;
-import ppddl.annotated.AnnotatedInitial;
+import ppddl.annotated.AnnotatedInitFormula;
 import ppddl.arithmeticexpression.Function;
 import ppddl.arithmeticexpression.MyNumber;
 import ppddl.arithmeticexpression.Negative;
@@ -30,7 +28,6 @@ import ppddl.arithmeticexpression.binaryop.Addition;
 import ppddl.arithmeticexpression.binaryop.Division;
 import ppddl.arithmeticexpression.binaryop.Multiplication;
 import ppddl.arithmeticexpression.binaryop.Subtraction;
-import ppddl.arithmeticexpression.function.FHead;
 import ppddl.arithmeticexpression.mynumber.Probability;
 import ppddl.effect.binary.Conditional;
 import ppddl.effect.binary.UniversalEffect;
@@ -40,18 +37,20 @@ import ppddl.effect.binary.assignop.ScaleUp;
 import ppddl.effect.binary.assignop.additiveop.Decrease;
 import ppddl.effect.binary.assignop.additiveop.Increase;
 import ppddl.effect.nary.ConjunctiveEffect;
-import ppddl.effect.nary.Probabilistic;
+import ppddl.effect.nary.ProbabilisticEffect;
 import ppddl.effect.unary.NegativeAtomicEffect;
 import ppddl.effect.unary.PositiveAtomicEffect;
 import ppddl.functiontypedlist.FunctionsDef;
-import ppddl.goal.preconditiongoal.PreconditionMetricGoal;
-import ppddl.goalspec.GoalRewardSpec;
-import ppddl.initel.AInitEl;
-import ppddl.initel.ainitel.nary.ConjunctiveInitial;
-import ppddl.initel.ainitel.pinitel.binary.EQInitial;
-import ppddl.initel.ainitel.pinitel.unary.AtomicInitial;
-import ppddl.initel.nary.ProbabilisticInitial;
+import ppddl.goal.PreconditionGoal;
+import ppddl.initformula.DeterministicInitFormula;
+import ppddl.initformula.ProbabilisticInitFormula;
+import ppddl.initformula.deterministic.ConjunctiveInitFormula;
+import ppddl.initformula.deterministic.terminal.AtomicInitFormula;
+import ppddl.initformula.deterministic.terminal.EQInitFormula;
 import ppddl.metricspec.Maximize;
+import ppddl.name.ActionSymbol;
+import ppddl.name.FunctionSymbol;
+import ppddl.name.Predicate;
 import ppddl.precondition.binary.Equality;
 import ppddl.precondition.binary.Implication;
 import ppddl.precondition.binary.numericexpression.EQ;
@@ -144,42 +143,42 @@ public class Main {
 		PredicatesDef predicatesDef = new PredicatesDef();
 		
 		Predicate p1 = new Predicate("p1");
-		predicatesDef.add(new AtomicFormulaSkeleton(p1));
+		predicatesDef.add(new AtomSkeleton(p1));
 		
 		Predicate p2 = new Predicate("p2");
 		TypedList<Variable> tlv1 = new TypedList<Variable>();
 		tlv1.add(new Variable("v1"));
-		predicatesDef.add(new AtomicFormulaSkeleton(p2, tlv1));
+		predicatesDef.add(new AtomSkeleton(p2, tlv1));
 		
 		Predicate p3 = new Predicate("p3");
 		TypedList<Variable> tlv2 = new TypedList<Variable>();
 		tlv2.add(new Variable("v2"));
 		tlv2.add(new Variable("v3"));
-		predicatesDef.add(new AtomicFormulaSkeleton(p3, tlv2));
+		predicatesDef.add(new AtomSkeleton(p3, tlv2));
 		
 		Predicate p4 = new Predicate("p4");
 		TypedList<Variable> tlv3 = new TypedList<Variable>();
 		tlv3.add(new Variable("v4"), new CompositeType(new PrimitiveType("pt1")));
-		predicatesDef.add(new AtomicFormulaSkeleton(p4, tlv3));
+		predicatesDef.add(new AtomSkeleton(p4, tlv3));
 		
 		Predicate p5 = new Predicate("p5");
 		TypedList<Variable> tlv4 = new TypedList<Variable>();
 		tlv4.add(new Variable("v5"), new CompositeType(new PrimitiveType("pt2"), new PrimitiveType("pt3")));
-		predicatesDef.add(new AtomicFormulaSkeleton(p5, tlv4));
+		predicatesDef.add(new AtomSkeleton(p5, tlv4));
 		
 		Predicate p6 = new Predicate("p6");
 		TypedList<Variable> tlv5 = new TypedList<Variable>();
 		CompositeType c1 = new CompositeType(new PrimitiveType("pt4"));
 		tlv5.add(new Variable("v6"), c1);
 		tlv5.add(new Variable("v7"), c1);
-		predicatesDef.add(new AtomicFormulaSkeleton(p6, tlv5));
+		predicatesDef.add(new AtomSkeleton(p6, tlv5));
 		
 		Predicate p7 = new Predicate("p7");
 		TypedList<Variable> tlv6 = new TypedList<Variable>();
 		CompositeType c2 = new CompositeType(new PrimitiveType("pt5"), new PrimitiveType("pt6"));
 		tlv6.add(new Variable("v8"), c2);
 		tlv6.add(new Variable("v9"), c2);
-		predicatesDef.add(new AtomicFormulaSkeleton(p7, tlv6));
+		predicatesDef.add(new AtomSkeleton(p7, tlv6));
 		
 		return predicatesDef;
 	}
@@ -250,9 +249,9 @@ public class Main {
 		
 		gds.add(new EQ(new MyNumber(1), new MyNumber(2)));
 		gds.add(new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"))));
-		gds.add(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"))));
-		gds.add(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Variable("v1"))));
-		gds.add(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))));
+		gds.add(new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"), new Constant("c1"))));
+		gds.add(new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"), new Variable("v1"))));
+		gds.add(new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))));
 		gds.add(new LE(new MyNumber(1), new MyNumber(2)));
 		gds.add(new LT(new MyNumber(1), new MyNumber(2)));
 		gds.add(new GT(new MyNumber(1), new MyNumber(2)));
@@ -287,12 +286,12 @@ public class Main {
 		AnnotatedEffect pe1 = new AnnotatedEffect(new Probability(0.8), new PositiveAtomicEffect(new Predicate("p1")));
 		AnnotatedEffect pe2 = new AnnotatedEffect(new Probability(0.2), new PositiveAtomicEffect(new Predicate("p1")));
 		
-		effects.add(new Probabilistic(pe1, pe2));
+		effects.add(new ProbabilisticEffect(pe1, pe2));
 		
 		return effects;
 	}
 	
-	public static List<ActionDef> structureDefs() throws Exception {
+	public static List<ActionDef> actionDefs() throws Exception {
 		List<ActionDef> structureDefs = new ArrayList<ActionDef>();
 		
 		structureDefs.add(new ActionDef(new ActionSymbol("as1")));
@@ -301,13 +300,19 @@ public class Main {
 		AnnotatedEffect pe1 = new AnnotatedEffect(new Probability(0.8), new PositiveAtomicEffect(new Predicate("p1")));
 		AnnotatedEffect pe2 = new AnnotatedEffect(new Probability(0.2), new PositiveAtomicEffect(new Predicate("p1")));
 		
-		structureDefs.add(new ActionDef(new ActionSymbol("as1"), new ActionDefBody(new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))), new Probabilistic(pe1, pe2))));
+		structureDefs.add(new ActionDef(new ActionSymbol("as1"), new ActionDefBody(new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1"))), new ProbabilisticEffect(pe1, pe2))));
 		
 		return structureDefs;
 	}
 	
 	public static Domain domain() throws Exception {
-		Domain domain = new Domain(new Name("d1"), requireDef(), typesDef(), constantsDef(), predicatesDef(), functionsDef(), structureDefs());
+		Domain domain = new Domain(new Name("d1"));
+		domain.setRequireDef(requireDef());
+		domain.setTypesDef(typesDef());
+		domain.setConstantsDef(constantsDef());
+		domain.setPredicatesDef(predicatesDef());
+		domain.setFunctionsDef(functionsDef());
+		domain.setActionDefs(actionDefs());
 		return domain;
 	}
 	
@@ -336,32 +341,34 @@ public class Main {
 	public static Init init() throws Exception {
 		Init init = new Init();
 		
-		init.add(new AtomicInitial(new AtomicFormula(new Predicate("p1"))));
-		init.add(new AtomicInitial(new AtomicFormula(new Predicate("p2"), new Constant("c1"))));
-		init.add(new AtomicInitial(new AtomicFormula(new Predicate("p3"), new Variable("v1"))));
-		init.add(new EQInitial(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
-		init.add(new EQInitial(new FHead(new FunctionSymbol("f1"), new Constant("c2")), new MyNumber(2)));
+		init.add(new AtomicInitFormula(new Atom(new Predicate("p1"))));
+		init.add(new AtomicInitFormula(new Atom(new Predicate("p2"), new Constant("c1"))));
+		init.add(new AtomicInitFormula(new Atom(new Predicate("p3"), new Variable("v1"))));
+		init.add(new EQInitFormula(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
+		init.add(new EQInitFormula(new Function(new FunctionSymbol("f1"), new Constant("c2")), new MyNumber(2)));
 		
-		AInitEl ip1 = new AtomicInitial(new AtomicFormula(new Predicate("p4")));
-		AInitEl ip2 = new AtomicInitial(new AtomicFormula(new Predicate("p5")));
-		init.add(new ProbabilisticInitial(new AnnotatedInitial(new Probability(0.8), ip1), new AnnotatedInitial(new Probability(0.2), ip2)));
+		DeterministicInitFormula ip1 = new AtomicInitFormula(new Atom(new Predicate("p4")));
+		DeterministicInitFormula ip2 = new AtomicInitFormula(new Atom(new Predicate("p5")));
+		init.add(new ProbabilisticInitFormula(new AnnotatedInitFormula(new Probability(0.8), ip1), new AnnotatedInitFormula(new Probability(0.2), ip2)));
 		
-		AInitEl ipc1 = new ConjunctiveInitial(new AtomicInitial(new AtomicFormula(new Predicate("p6"))), new AtomicInitial(new AtomicFormula(new Predicate("p7"))));
-		init.add(new ProbabilisticInitial(new AnnotatedInitial(new Probability(0.8), ip1), new AnnotatedInitial(new Probability(0.2), ipc1)));
-		
-		init.add(ipc1); // ERROR
+		DeterministicInitFormula ipc1 = new ConjunctiveInitFormula(new AtomicInitFormula(new Atom(new Predicate("p6"))), new AtomicInitFormula(new Atom(new Predicate("p7"))));
+		init.add(new ProbabilisticInitFormula(new AnnotatedInitFormula(new Probability(0.8), ip1), new AnnotatedInitFormula(new Probability(0.2), ipc1)));
 		
 		return init;
 	}
 	
 	public static Goal goal() throws Exception {
-		Precondition gd1 = new EQ(new MyNumber(1), new FHead(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1")));
-		Goal goal = new PreconditionMetricGoal(new GoalRewardSpec(gd1, new MyNumber(1)), new Maximize(FHead.REWARD));
+		Precondition gd1 = new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1")));
+		Goal goal = new PreconditionGoal(new GoalSpec(gd1, new MyNumber(1)), new Maximize(Function.REWARD));
 		return goal;
 	}
 	
 	public static Problem problem() throws Exception {
-		Problem problem = new Problem(new Name("p1"), new Name("d1"), requireDef(), objectsDef(), init(), goal());
+		Problem problem = new Problem(new Name("p1"), new Name("d1"));
+		problem.setRequireDef(requireDef());
+		problem.setObjectsDef(objectsDef());
+		problem.setInit(init());
+		problem.setGoal(goal());
 		return problem;
 	}
 	

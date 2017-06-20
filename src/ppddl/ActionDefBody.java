@@ -11,18 +11,15 @@ public class ActionDefBody {
 	}
 	
 	public ActionDefBody(Precondition gd) {
-		this.setGD(gd);
-		this.setEffect(null);
+		this(gd, null);
 	}
 	
 	public ActionDefBody(Effect effect) {
-		this.setGD(null);
-		this.setEffect(effect);
+		this(null, effect);
 	}
 	
 	public ActionDefBody() {
-		this.setGD(null);
-		this.setEffect(null);
+		this(null, null);
 	}
 
 	public Precondition getGD() {
@@ -39,6 +36,10 @@ public class ActionDefBody {
 
 	public void setEffect(Effect effect) {
 		this.effect = effect;
+	}
+	
+	public boolean isEmpty() {
+		return this.getGD() == null && this.getEffect() == null;
 	}
 	
 	@Override

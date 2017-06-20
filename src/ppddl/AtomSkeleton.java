@@ -1,19 +1,21 @@
 package ppddl;
 
+import ppddl.name.Predicate;
 import ppddl.term.Variable;
 
-public class AtomicFormulaSkeleton {
+public class AtomSkeleton {
 	
 	private Predicate predicate;
 	private TypedList<Variable> variables;
 	
-	public AtomicFormulaSkeleton(Predicate predicate, TypedList<Variable> variables) {
+	public AtomSkeleton(Predicate predicate, TypedList<Variable> variables) {
 		this.setPredicate(predicate);
 		this.setVariables(variables);
 	}
 	
-	public AtomicFormulaSkeleton(Predicate predicate) {
-		this(predicate, new TypedList<Variable>());
+	public AtomSkeleton(Predicate predicate) {
+		this.setPredicate(predicate);
+		this.setVariables(new TypedList<Variable>());
 	}
 
 	public Predicate getPredicate() {
@@ -23,7 +25,7 @@ public class AtomicFormulaSkeleton {
 	public void setPredicate(Predicate predicate) {
 		this.predicate = predicate;
 	}
-
+	
 	public TypedList<Variable> getVariables() {
 		return variables;
 	}
@@ -34,9 +36,9 @@ public class AtomicFormulaSkeleton {
 	
 	@Override
 	public String toString() {
-		String output = "(" + predicate.toString();
+		String output = "(" + this.getPredicate().toString();
 		if(!this.getVariables().isEmpty()) {
-			output += " " + variables.toString();
+			output += " " + this.getVariables().toString();
 		}
 		output += ")";
 		return output;

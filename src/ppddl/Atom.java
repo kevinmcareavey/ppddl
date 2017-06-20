@@ -3,18 +3,20 @@ package ppddl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtomicFormula {
+import ppddl.name.Predicate;
+
+public class Atom {
 	
 	private Predicate predicate;
 	private List<Term> arguments;
 	
-	public AtomicFormula(Predicate predicate, List<Term> arguments) {
+	public Atom(Predicate predicate, List<Term> arguments) {
 		this.setPredicate(predicate);
 		this.setArguments(arguments);
 	}
 	
 	@SafeVarargs
-	public AtomicFormula(Predicate predicate, Term... arguments) {
+	public Atom(Predicate predicate, Term... arguments) throws Exception {
 		this.setPredicate(predicate);
 		List<Term> list = new ArrayList<Term>();
 		for(int i = 0; i < arguments.length; i++) {
@@ -23,7 +25,7 @@ public class AtomicFormula {
 		this.setArguments(list);
 	}
 	
-	public AtomicFormula(Predicate predicate) {
+	public Atom(Predicate predicate) {
 		this(predicate, new ArrayList<Term>());
 	}
 
@@ -34,7 +36,7 @@ public class AtomicFormula {
 	public void setPredicate(Predicate predicate) {
 		this.predicate = predicate;
 	}
-
+	
 	public List<Term> getArguments() {
 		return arguments;
 	}

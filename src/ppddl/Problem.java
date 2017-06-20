@@ -11,41 +11,13 @@ public class Problem {
 	private Init init;
 	private Goal goal;
 	
-	public Problem(Name name, Name domain, RequireDef requireDef, ObjectsDef objectsDef, Init init, Goal goal) {
+	public Problem(Name name, Name domain) {
 		this.setName(name);
 		this.setDomain(domain);
-		this.setRequireDef(requireDef);
-		this.setObjectsDef(objectsDef);
-		this.setInit(init);
-		this.setGoal(goal);
-	}
-	
-	public Problem(Name name, Name domain, ObjectsDef objectsDef, Init init, Goal goal) {
-		this(name, domain, null, objectsDef, init, goal);
-	}
-	
-	public Problem(Name name, Name domain, RequireDef requireDef, Init init, Goal goal) {
-		this(name, domain, requireDef, null, init, goal);
-	}
-	
-	public Problem(Name name, Name domain, RequireDef requireDef, ObjectsDef objectsDef, Goal goal) {
-		this(name, domain, requireDef, objectsDef, null, goal);
-	}
-	
-	public Problem(Name name, Name domain, RequireDef requireDef, Goal goal) {
-		this(name, domain, requireDef, null, null, goal);
-	}
-	
-	public Problem(Name name, Name domain, ObjectsDef objectsDef, Goal goal) {
-		this(name, domain, null, objectsDef, null, goal);
-	}
-	
-	public Problem(Name name, Name domain, Init init, Goal goal) {
-		this(name, domain, null, null, init, goal);
-	}
-	
-	public Problem(Name name, Name domain, Goal goal) {
-		this(name, domain, null, null, null, goal);
+		this.setRequireDef(new RequireDef());
+		this.setObjectsDef(new ObjectsDef());
+		this.setInit(new Init());
+		this.setGoal(null);
 	}
 	
 	public Name getName() {
@@ -101,9 +73,16 @@ public class Problem {
 		String output = "(define (problem " + name + ")\n";
 		output += "(:domain " + this.getDomain() + ")\n";
 		output += this.getRequireDef() + "\n";
-		output += this.getObjectsDef() + "\n";
-		output += this.getInit() + "\n";
-		output += this.getGoal() + ")";
+		if(!this.getObjectsDef().isEmpty()) {
+			output += this.getObjectsDef() + "\n";
+		}
+		if(!this.getInit().isEmpty()) {
+			output += this.getInit() + "\n";
+		}
+		if(this.getGoal() != null) {
+			output += this.getGoal();
+		}
+		output += ")";
 		return output;
 	}
 

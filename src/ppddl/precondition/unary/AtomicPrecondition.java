@@ -2,27 +2,27 @@ package ppddl.precondition.unary;
 
 import java.util.List;
 
-import ppddl.AtomicFormula;
-import ppddl.Predicate;
+import ppddl.Atom;
 import ppddl.Term;
+import ppddl.name.Predicate;
 import ppddl.precondition.UnaryPrecondition;
 
-public class AtomicPrecondition extends UnaryPrecondition<AtomicFormula> {
+public class AtomicPrecondition extends UnaryPrecondition<Atom> {
 
-	public AtomicPrecondition(AtomicFormula child) {
+	public AtomicPrecondition(Atom child) {
 		super(child);
 	}
 	
-	public AtomicPrecondition(Predicate predicate, List<Term> arguments) {
-		this(new AtomicFormula(predicate, arguments));
+	public AtomicPrecondition(Predicate predicate, List<Term> arguments) throws Exception {
+		this(new Atom(predicate, arguments));
 	}
 	
-	public AtomicPrecondition(Predicate predicate, Term... arguments) {
-		this(new AtomicFormula(predicate, arguments));
+	public AtomicPrecondition(Predicate predicate, Term... arguments) throws Exception {
+		this(new Atom(predicate, arguments));
 	}
 	
 	public AtomicPrecondition(Predicate predicate) {
-		this(new AtomicFormula(predicate));
+		this(new Atom(predicate));
 	}
 
 	@Override

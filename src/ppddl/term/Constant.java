@@ -12,7 +12,7 @@ public class Constant extends Term implements Typable {
 		this.setName(name);
 	}
 	
-	public Constant(String symbol) {
+	public Constant(String symbol) throws Exception {
 		this.setName(new Name(symbol));
 	}
 

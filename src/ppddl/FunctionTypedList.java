@@ -2,6 +2,8 @@ package ppddl;
 
 import java.util.ArrayList;
 
+import ppddl.type.PrimitiveType;
+
 public abstract class FunctionTypedList extends ArrayList<FunctionSkeleton> {
 
 	/**
@@ -15,7 +17,7 @@ public abstract class FunctionTypedList extends ArrayList<FunctionSkeleton> {
 		for(FunctionSkeleton functionSkeleton : this) {
 			output += functionSkeleton.toString() + " ";
 		}
-		output += "- number";
+		output += "- " + PrimitiveType.NUMBER.toString();
 		return output;
 	}
 	

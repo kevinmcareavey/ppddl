@@ -1,5 +1,6 @@
 package ppddl;
 
+import ppddl.name.FunctionSymbol;
 import ppddl.term.Variable;
 
 public class FunctionSkeleton {
@@ -35,9 +36,9 @@ public class FunctionSkeleton {
 	
 	@Override
 	public String toString() {
-		String output = "(" + functionSymbol.toString();
+		String output = "(" + this.getFunctionSymbol().toString();
 		if(!this.getVariables().isEmpty()) {
-			output += " " + variables.toString();
+			output += " " + this.getVariables().toString();
 		}
 		output += ")";
 		return output;

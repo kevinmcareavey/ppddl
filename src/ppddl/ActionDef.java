@@ -1,17 +1,26 @@
 package ppddl;
 
+import ppddl.name.ActionSymbol;
+import ppddl.term.Variable;
+
 public class ActionDef {
 	
 	private ActionSymbol actionSymbol;
+	private TypedList<Variable> variables;
 	private ActionDefBody actionDefBody;
 	
-	public ActionDef(ActionSymbol actionSymbol, ActionDefBody actionDefBody) {
+	public ActionDef(ActionSymbol actionSymbol, TypedList<Variable> variables, ActionDefBody actionDefBody) {
 		this.setActionSymbol(actionSymbol);
+		this.setVariables(variables);
 		this.setActionDefBody(actionDefBody);
 	}
 	
+	public ActionDef(ActionSymbol actionSymbol, ActionDefBody actionDefBody) {
+		this(actionSymbol, new TypedList<Variable>(), actionDefBody);
+	}
+	
 	public ActionDef(ActionSymbol actionSymbol) {
-		this(actionSymbol, null);
+		this(actionSymbol, new ActionDefBody());
 	}
 
 	public ActionSymbol getActionSymbol() {
@@ -20,6 +29,14 @@ public class ActionDef {
 
 	public void setActionSymbol(ActionSymbol actionSymbol) {
 		this.actionSymbol = actionSymbol;
+	}
+	
+	public TypedList<Variable> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(TypedList<Variable> variables) {
+		this.variables = variables;
 	}
 
 	public ActionDefBody getActionDefBody() {
@@ -33,7 +50,10 @@ public class ActionDef {
 	@Override
 	public String toString() {
 		String output = "(:action " + this.getActionSymbol().toString();
-		if(this.getActionDefBody() != null) {
+		if(!this.getVariables().isEmpty()) {
+			output += "\n:parameters (" + this.getVariables().toString() + ")";
+		}
+		if(!this.getActionDefBody().isEmpty()) {
 			output += "\n" + this.getActionDefBody().toString();
 		}
 		output += ")";

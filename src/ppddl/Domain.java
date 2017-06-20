@@ -1,5 +1,6 @@
 package ppddl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ppddl.functiontypedlist.FunctionsDef;
@@ -16,19 +17,14 @@ public class Domain {
 	private FunctionsDef functionsDef;
 	private List<ActionDef> actionDefs;
 	
-	public Domain(Name name, RequireDef requireDef, TypesDef typesDef, ConstantsDef constantsDef, PredicatesDef predicatesDef, FunctionsDef functionsDef, List<ActionDef> actionDefs) {
-		this.setName(name);
-		this.setRequireDef(requireDef);
-		this.setTypesDef(typesDef);
-		this.setConstantsDef(constantsDef);
-		this.setPredicatesDef(predicatesDef);
-		this.setFunctionsDef(functionsDef);
-		this.setActionDefs(actionDefs);
-	}
-	
 	public Domain(Name name) {
-		this(name, new RequireDef(), null, null, null, null, null);
-		this.getRequireDef().enableSTRIPS();
+		this.setName(name);
+		this.setRequireDef(new RequireDef());
+		this.setTypesDef(new TypesDef());
+		this.setConstantsDef(new ConstantsDef());
+		this.setPredicatesDef(new PredicatesDef());
+		this.setFunctionsDef(new FunctionsDef());
+		this.setActionDefs(new ArrayList<ActionDef>());
 	}
 
 	public Name getName() {
@@ -83,8 +79,8 @@ public class Domain {
 		return actionDefs;
 	}
 
-	public void setActionDefs(List<ActionDef> structureDefs) {
-		this.actionDefs = structureDefs;
+	public void setActionDefs(List<ActionDef> actionDefs) {
+		this.actionDefs = actionDefs;
 	}
 
 	@Override

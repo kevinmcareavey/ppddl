@@ -2,27 +2,27 @@ package ppddl.effect.unary;
 
 import java.util.List;
 
-import ppddl.AtomicFormula;
-import ppddl.Predicate;
+import ppddl.Atom;
 import ppddl.Term;
 import ppddl.effect.UnaryEffect;
+import ppddl.name.Predicate;
 
-public class NegativeAtomicEffect extends UnaryEffect<AtomicFormula> {
+public class NegativeAtomicEffect extends UnaryEffect<Atom> {
 
-	public NegativeAtomicEffect(AtomicFormula child) {
+	public NegativeAtomicEffect(Atom child) {
 		super(child);
 	}
 	
-	public NegativeAtomicEffect(Predicate predicate, List<Term> arguments) {
-		this(new AtomicFormula(predicate, arguments));
+	public NegativeAtomicEffect(Predicate predicate, List<Term> arguments) throws Exception {
+		this(new Atom(predicate, arguments));
 	}
 	
-	public NegativeAtomicEffect(Predicate predicate, Term... arguments) {
-		this(new AtomicFormula(predicate, arguments));
+	public NegativeAtomicEffect(Predicate predicate, Term... arguments) throws Exception {
+		this(new Atom(predicate, arguments));
 	}
 	
 	public NegativeAtomicEffect(Predicate predicate) {
-		this(new AtomicFormula(predicate));
+		this(new Atom(predicate));
 	}
 
 	@Override

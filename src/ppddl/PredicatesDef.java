@@ -2,7 +2,7 @@ package ppddl;
 
 import java.util.ArrayList;
 
-public class PredicatesDef extends ArrayList<AtomicFormulaSkeleton> {
+public class PredicatesDef extends ArrayList<AtomSkeleton> {
 
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class PredicatesDef extends ArrayList<AtomicFormulaSkeleton> {
 			return "";
 		} else {
 			String output = "(:predicates";
-			for(AtomicFormulaSkeleton afs : this) {
+			for(AtomSkeleton afs : this) {
 				output += " " + afs;
 			}
 			output += ")";

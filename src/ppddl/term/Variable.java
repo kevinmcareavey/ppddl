@@ -12,7 +12,7 @@ public class Variable extends Term implements Typable {
 		this.setName(name);
 	}
 	
-	public Variable(String symbol) {
+	public Variable(String symbol) throws Exception {
 		this.setName(new Name(symbol));
 	}
 
