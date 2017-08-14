@@ -1,6 +1,6 @@
 package ppddl;
 
-public abstract class MetricSpec {
+public abstract class MetricSpec implements Requires {
 	
 	private ArithmeticExpression child;
 	
@@ -20,6 +20,11 @@ public abstract class MetricSpec {
 	}
 	
 	public abstract String getSymbol();
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		this.getChild().validate(requireDef);
+	}
 
 	@Override
 	public String toString() {

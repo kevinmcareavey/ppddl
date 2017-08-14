@@ -3,6 +3,7 @@ package ppddl.effect.unary;
 import java.util.List;
 
 import ppddl.Atom;
+import ppddl.Requirements;
 import ppddl.Term;
 import ppddl.effect.UnaryEffect;
 import ppddl.name.Predicate;
@@ -28,6 +29,11 @@ public class PositiveAtomicEffect extends UnaryEffect<Atom> {
 	@Override
 	public String getSymbol() {
 		return "";
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		// Supported by default
 	}
 
 	@Override

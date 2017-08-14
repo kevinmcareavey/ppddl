@@ -2,7 +2,8 @@ package ppddl.effect.nary;
 
 import java.util.List;
 
-import ppddl.annotated.AnnotatedEffect;
+import ppddl.Requirements;
+import ppddl.annotation.AnnotatedEffect;
 import ppddl.effect.NaryEffect;
 
 public class ProbabilisticEffect extends NaryEffect<AnnotatedEffect> {
@@ -36,6 +37,16 @@ public class ProbabilisticEffect extends NaryEffect<AnnotatedEffect> {
 	@Override
 	public String getSymbol() {
 		return "probabilistic";
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		if(!requireDef.isEnabledProbabilisticEffects()) {
+			throw new Exception("probabilistic effects are defined but :probabilistic-effects is not required");
+		}
+		for(AnnotatedEffect annotatedEffect : this.getChildren()) {
+			annotatedEffect.getChild().validate(requireDef);
+		}
 	}
 
 }

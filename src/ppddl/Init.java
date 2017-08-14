@@ -2,9 +2,9 @@ package ppddl;
 
 import java.util.ArrayList;
 
-import ppddl.initformula.deterministic.ConjunctiveInitFormula;
+import ppddl.initial_formula.deterministic.ConjunctionInitialFormula;
 
-public class Init extends ArrayList<InitFormula> {
+public class Init extends ArrayList<InitialFormula> implements Requires {
 
 	/**
 	 * 
@@ -12,8 +12,8 @@ public class Init extends ArrayList<InitFormula> {
 	private static final long serialVersionUID = 7948006237260975764L;
 	
 	@Override
-	public boolean add(InitFormula initEl) {
-		if(initEl instanceof ConjunctiveInitFormula) {
+	public boolean add(InitialFormula initEl) {
+		if(initEl instanceof ConjunctionInitialFormula) {
 			try {
 				throw new Exception("conjunctive init formulas are only allowed as subformulas of probabilistic init formulas");
 			} catch (Exception e) {
@@ -24,11 +24,18 @@ public class Init extends ArrayList<InitFormula> {
 		}
 		return false;
 	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		for(InitialFormula initFormula : this) {
+			initFormula.validate(requireDef);
+		}
+	}
 
 	@Override
 	public String toString() {
 		String output = "(:init";
-		for(InitFormula initEl : this) {
+		for(InitialFormula initEl : this) {
 			output += " " + initEl.toString();
 		}
 		output += ")";

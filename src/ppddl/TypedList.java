@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TypedList<T extends Typable> extends LinkedHashMap<T, Type> {
+public class TypedList<T extends Typable> extends LinkedHashMap<T, Type> implements Requires {
 
 	/**
 	 * 
@@ -21,6 +21,18 @@ public class TypedList<T extends Typable> extends LinkedHashMap<T, Type> {
 	
 	public void add(T t) throws Exception {
 		this.add(t, null);
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		if(!requireDef.isEnabledTyping()) {
+			for(Map.Entry<T, Type> entry : this.entrySet()) {
+				Type type = entry.getValue();
+				if(type != null) {
+					throw new Exception("types are defined but :typing is not required");
+				}
+			}
+		}
 	}
 
 	@Override

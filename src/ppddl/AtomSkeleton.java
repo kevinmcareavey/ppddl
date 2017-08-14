@@ -3,7 +3,7 @@ package ppddl;
 import ppddl.name.Predicate;
 import ppddl.term.Variable;
 
-public class AtomSkeleton {
+public class AtomSkeleton implements Requires {
 	
 	private Predicate predicate;
 	private TypedList<Variable> variables;
@@ -32,6 +32,11 @@ public class AtomSkeleton {
 
 	public void setVariables(TypedList<Variable> variables) {
 		this.variables = variables;
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		this.getVariables().validate(requireDef);
 	}
 	
 	@Override

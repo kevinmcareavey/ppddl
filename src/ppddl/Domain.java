@@ -3,28 +3,32 @@ package ppddl;
 import java.util.ArrayList;
 import java.util.List;
 
-import ppddl.functiontypedlist.FunctionsDef;
-import ppddl.typedlist.ConstantsDef;
-import ppddl.typedlist.TypesDef;
+import ppddl.functiontypedlist.Functions;
+import ppddl.typedlist.Constants;
+import ppddl.typedlist.Types;
 
-public class Domain {
+public class Domain implements Requires {
 	
 	private Name name;
-	private RequireDef requireDef;
-	private TypesDef typesDef;
-	private ConstantsDef constantsDef;
+	private Requirements requireDef;
+	private Types typesDef;
+	private Constants constantsDef;
 	private PredicatesDef predicatesDef;
-	private FunctionsDef functionsDef;
-	private List<ActionDef> actionDefs;
+	private Functions functionsDef;
+	private List<ActionSchemata> actionDefs;
 	
 	public Domain(Name name) {
 		this.setName(name);
-		this.setRequireDef(new RequireDef());
-		this.setTypesDef(new TypesDef());
-		this.setConstantsDef(new ConstantsDef());
+		this.setRequireDef(new Requirements());
+		this.setTypesDef(new Types());
+		this.setConstantsDef(new Constants());
 		this.setPredicatesDef(new PredicatesDef());
-		this.setFunctionsDef(new FunctionsDef());
-		this.setActionDefs(new ArrayList<ActionDef>());
+		this.setFunctionsDef(new Functions());
+		this.setActionDefs(new ArrayList<ActionSchemata>());
+	}
+	
+	public Domain(String name) throws Exception {
+		this(new Name(name));
 	}
 
 	public Name getName() {
@@ -35,27 +39,27 @@ public class Domain {
 		this.name = name;
 	}
 
-	public RequireDef getRequireDef() {
+	public Requirements getRequireDef() {
 		return requireDef;
 	}
 
-	public void setRequireDef(RequireDef requireDef) {
+	public void setRequireDef(Requirements requireDef) {
 		this.requireDef = requireDef;
 	}
 
-	public TypesDef getTypesDef() {
+	public Types getTypesDef() {
 		return typesDef;
 	}
 
-	public void setTypesDef(TypesDef typesDef) {
+	public void setTypesDef(Types typesDef) {
 		this.typesDef = typesDef;
 	}
 
-	public ConstantsDef getConstantsDef() {
+	public Constants getConstantsDef() {
 		return constantsDef;
 	}
 
-	public void setConstantsDef(ConstantsDef constantsDef) {
+	public void setConstantsDef(Constants constantsDef) {
 		this.constantsDef = constantsDef;
 	}
 
@@ -67,34 +71,62 @@ public class Domain {
 		this.predicatesDef = predicatesDef;
 	}
 
-	public FunctionsDef getFunctionsDef() {
+	public Functions getFunctionsDef() {
 		return functionsDef;
 	}
 
-	public void setFunctionsDef(FunctionsDef functionsDef) {
+	public void setFunctionsDef(Functions functionsDef) {
 		this.functionsDef = functionsDef;
 	}
 
-	public List<ActionDef> getActionDefs() {
+	public List<ActionSchemata> getActionDefs() {
 		return actionDefs;
 	}
 
-	public void setActionDefs(List<ActionDef> actionDefs) {
+	public void setActionDefs(List<ActionSchemata> actionDefs) {
 		this.actionDefs = actionDefs;
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		if(!requireDef.isEnabledTyping() && !this.getTypesDef().isEmpty()) {
+			throw new Exception("types are defined but :typing is not required");
+		}
+		if(!requireDef.isEnabledFluents() && !this.getFunctionsDef().isEmpty()) {
+			throw new Exception("functions are defined but :fluents is not required");
+		}
+		this.getConstantsDef().validate(requireDef);
+		this.getPredicatesDef().validate(requireDef);
+		this.getFunctionsDef().validate(requireDef);
+		for(ActionSchemata actionDef : this.getActionDefs()) {
+			actionDef.validate(requireDef);
+		}
+	}
+	
+	public void validate() throws Exception {
+		this.validate(this.getRequireDef());
 	}
 
 	@Override
 	public String toString() {
 		String output = "(define (domain " + this.getName().toString() + ")";
-		output += "\n" + this.getRequireDef().toString();
-		output += "\n" + this.getTypesDef().toString();
-		output += "\n" + this.getConstantsDef().toString();
-		output += "\n" + this.getPredicatesDef().toString();
-		output += "\n" + this.getFunctionsDef().toString();
-		for(ActionDef actionDef : this.getActionDefs()) {
-			output += "\n" + actionDef.toString();
+		output += "\n\t" + this.getRequireDef().toString();
+		if(!this.getTypesDef().isEmpty()) {
+			output += "\n\t" + this.getTypesDef().toString();
 		}
-		output += ")";
+		if(!this.getConstantsDef().isEmpty()) {
+			output += "\n\t" + this.getConstantsDef().toString();
+		}
+		if(!this.getPredicatesDef().isEmpty()) {
+			output += "\n\t" + this.getPredicatesDef().toString();
+		}
+		if(!this.getFunctionsDef().isEmpty()) {
+			output += "\n\t" + this.getFunctionsDef().toString();
+		}
+		for(ActionSchemata actionDef : this.getActionDefs()) {
+			output += "\n\t" + actionDef.toString();
+		}
+		output += ")\n";
 		return output;
 	}
 	

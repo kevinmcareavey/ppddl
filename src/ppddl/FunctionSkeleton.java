@@ -3,7 +3,7 @@ package ppddl;
 import ppddl.name.FunctionSymbol;
 import ppddl.term.Variable;
 
-public class FunctionSkeleton {
+public class FunctionSkeleton implements Requires {
 	
 	private FunctionSymbol functionSymbol;
 	private TypedList<Variable> variables;
@@ -32,6 +32,11 @@ public class FunctionSkeleton {
 
 	public void setVariables(TypedList<Variable> variables) {
 		this.variables = variables;
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		this.getVariables().validate(requireDef);
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package ppddl.goal;
 import ppddl.Goal;
 import ppddl.GoalSpec;
 import ppddl.MetricSpec;
+import ppddl.Requirements;
 
 public class PreconditionGoal extends Goal {
 	
@@ -32,6 +33,11 @@ public class PreconditionGoal extends Goal {
 	
 	public void setMetricSpec(MetricSpec metricSpec) {
 		this.metricSpec = metricSpec;
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		this.getGoalSpec().validate(requireDef);
 	}
 
 	@Override

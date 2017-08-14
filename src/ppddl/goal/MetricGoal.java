@@ -2,6 +2,7 @@ package ppddl.goal;
 
 import ppddl.Goal;
 import ppddl.MetricSpec;
+import ppddl.Requirements;
 
 public class MetricGoal extends Goal {
 	
@@ -17,6 +18,11 @@ public class MetricGoal extends Goal {
 	
 	public void setMetricSpec(MetricSpec metricSpec) {
 		this.metricSpec = metricSpec;
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		// Supported by default
 	}
 
 	@Override

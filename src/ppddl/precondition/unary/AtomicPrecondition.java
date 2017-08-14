@@ -3,6 +3,7 @@ package ppddl.precondition.unary;
 import java.util.List;
 
 import ppddl.Atom;
+import ppddl.Requirements;
 import ppddl.Term;
 import ppddl.name.Predicate;
 import ppddl.precondition.UnaryPrecondition;
@@ -28,6 +29,11 @@ public class AtomicPrecondition extends UnaryPrecondition<Atom> {
 	@Override
 	public String getSymbol() {
 		return "";
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		// Supported by default
 	}
 
 	@Override

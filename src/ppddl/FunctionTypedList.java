@@ -2,9 +2,16 @@ package ppddl;
 
 import java.util.ArrayList;
 
-import ppddl.type.PrimitiveType;
+import ppddl.type.SimpleType;
 
-public abstract class FunctionTypedList extends ArrayList<FunctionSkeleton> {
+public abstract class FunctionTypedList extends ArrayList<FunctionSkeleton> implements Requires {
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		for(FunctionSkeleton functionSkeleton : this) {
+			functionSkeleton.validate(requireDef);
+		}
+	}
 
 	/**
 	 * 
@@ -17,7 +24,7 @@ public abstract class FunctionTypedList extends ArrayList<FunctionSkeleton> {
 		for(FunctionSkeleton functionSkeleton : this) {
 			output += functionSkeleton.toString() + " ";
 		}
-		output += "- " + PrimitiveType.NUMBER.toString();
+		output += "- " + SimpleType.NUMBER.toString(); // Not actually needed...?
 		return output;
 	}
 	

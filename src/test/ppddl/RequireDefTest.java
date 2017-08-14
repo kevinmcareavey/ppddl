@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ppddl.RequireDef;
+import ppddl.Requirements;
 
 public class RequireDefTest {
 
 	@Test
 	public void strips() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		
 		assertEquals(true, requireDef.isEnabledSTRIPS());
 		assertEquals(false, requireDef.isEnabledTyping());
@@ -32,7 +32,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void typing() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableTyping();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -55,7 +55,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void equality() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableEquality();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -78,7 +78,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void negativePreconditions() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableNegativePreconditions();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -101,7 +101,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void disjunctivePreconditions() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableDisjunctivePreconditions();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -124,7 +124,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void existentialPreconditions() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableExistentialPreconditions();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -147,7 +147,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void universalPreconditions() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableUniversalPreconditions();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -170,7 +170,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void conditionalEffects() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableConditionalEffects();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -193,7 +193,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void probabilisticEffects() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableProbabilisticEffects();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -216,7 +216,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void rewards() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableRewards();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -239,7 +239,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void fluents() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableFluents();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -262,7 +262,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void quantifiedPreconditions() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableQuantifiedPreconditions();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -285,7 +285,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void adl() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableADL();
 		
 		assertEquals(true, requireDef.isEnabledSTRIPS());
@@ -308,7 +308,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void mdp() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableMDP();
 		
 		assertEquals(false, requireDef.isEnabledSTRIPS());
@@ -331,7 +331,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void allPrimitive() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableSTRIPS();
 		requireDef.enableTyping();
 		requireDef.enableEquality();
@@ -364,7 +364,7 @@ public class RequireDefTest {
 	
 	@Test
 	public void allComposite() {
-		RequireDef requireDef = new RequireDef();
+		Requirements requireDef = new Requirements();
 		requireDef.enableFluents();
 		requireDef.enableADL();
 		requireDef.enableMDP();

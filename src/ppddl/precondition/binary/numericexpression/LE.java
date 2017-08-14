@@ -1,11 +1,11 @@
 package ppddl.precondition.binary.numericexpression;
 
 import ppddl.ArithmeticExpression;
-import ppddl.precondition.binary.NumericExpression;
+import ppddl.precondition.binary.NumericPrecondition;
 
-public class LE extends NumericExpression {
+public class LE extends NumericPrecondition {
 	
-	public LE(ArithmeticExpression leftChild, ArithmeticExpression rightChild) {
+	public LE(ArithmeticExpression leftChild, ArithmeticExpression rightChild) throws Exception {
 		super(leftChild, rightChild);
 	}
 	

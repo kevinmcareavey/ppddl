@@ -1,23 +1,27 @@
 package ppddl;
 
-import ppddl.typedlist.ObjectsDef;
+import ppddl.typedlist.Objects;
 
-public class Problem {
+public class Problem implements Requires {
 	
 	private Name name;
 	private Name domain;
-	private RequireDef requireDef;
-	private ObjectsDef objectsDef;
+	private Requirements requireDef;
+	private Objects objectsDef;
 	private Init init;
 	private Goal goal;
 	
 	public Problem(Name name, Name domain) {
 		this.setName(name);
 		this.setDomain(domain);
-		this.setRequireDef(new RequireDef());
-		this.setObjectsDef(new ObjectsDef());
+		this.setRequireDef(new Requirements());
+		this.setObjectsDef(new Objects());
 		this.setInit(new Init());
 		this.setGoal(null);
+	}
+	
+	public Problem(String name, String domain) throws Exception {
+		this(new Name(name), new Name(domain));
 	}
 	
 	public Name getName() {
@@ -36,19 +40,19 @@ public class Problem {
 		this.domain = domain;
 	}
 	
-	public RequireDef getRequireDef() {
+	public Requirements getRequireDef() {
 		return requireDef;
 	}
 	
-	public void setRequireDef(RequireDef requireDef) {
+	public void setRequireDef(Requirements requireDef) {
 		this.requireDef = requireDef;
 	}
 	
-	public ObjectsDef getObjectsDef() {
+	public Objects getObjectsDef() {
 		return objectsDef;
 	}
 	
-	public void setObjectsDef(ObjectsDef objectsDef) {
+	public void setObjectsDef(Objects objectsDef) {
 		this.objectsDef = objectsDef;
 	}
 	
@@ -67,22 +71,33 @@ public class Problem {
 	public void setGoal(Goal goal) {
 		this.goal = goal;
 	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		this.getObjectsDef().validate(requireDef);
+		this.getInit().validate(requireDef);
+		this.getGoal().validate(requireDef);
+	}
+	
+	public void validate() throws Exception {
+		this.validate(this.getRequireDef());
+	}
 
 	@Override
 	public String toString() {
-		String output = "(define (problem " + name + ")\n";
-		output += "(:domain " + this.getDomain() + ")\n";
-		output += this.getRequireDef() + "\n";
+		String output = "(define (problem " + name + ")";
+		output += "\n\t(:domain " + this.getDomain() + ")";
+		output += "\n\t" + this.getRequireDef();
 		if(!this.getObjectsDef().isEmpty()) {
-			output += this.getObjectsDef() + "\n";
+			output += "\n\t" + this.getObjectsDef();
 		}
 		if(!this.getInit().isEmpty()) {
-			output += this.getInit() + "\n";
+			output += "\n\t" + this.getInit();
 		}
 		if(this.getGoal() != null) {
-			output += this.getGoal();
+			output += "\n\t" + this.getGoal();
 		}
-		output += ")";
+		output += ")\n";
 		return output;
 	}
 

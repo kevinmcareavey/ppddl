@@ -1,6 +1,6 @@
 package ppddl;
 
-public class GoalSpec {
+public class GoalSpec implements Requires {
 	
 	private Precondition goal;
 	private ArithmeticExpression goalReward;
@@ -33,6 +33,13 @@ public class GoalSpec {
 	
 	public void setGoalReward(ArithmeticExpression goalReward) {
 		this.goalReward = goalReward;
+	}
+	
+	@Override
+	public void validate(Requirements requireDef) throws Exception {
+		if(!requireDef.isEnabledRewards() && this.getGoalReward() != null) {
+			throw new Exception("reward goals are defined but :rewards is not required");
+		}
 	}
 	
 	@Override
