@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ppddl.Requirements;
+import ppddl.main.Requirements;
 
 public class RequireDefTest {
 
