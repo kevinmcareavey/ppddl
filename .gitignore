@@ -49,3 +49,6 @@ bin
 .project
 target
 
+# Maven files
+dependency-reduced-pom.xml
+
