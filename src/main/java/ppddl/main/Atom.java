@@ -3,6 +3,7 @@ package ppddl.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import ppddl.exception.NameException;
 import ppddl.main.name.Predicate;
 
 public class Atom {
@@ -27,6 +28,10 @@ public class Atom {
 	
 	public Atom(Predicate predicate) {
 		this(predicate, new ArrayList<Term>());
+	}
+
+	public Atom(String label) throws NameException {
+		this(new Predicate(label));
 	}
 
 	public Predicate getPredicate() {

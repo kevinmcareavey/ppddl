@@ -3,6 +3,14 @@ package ppddl.debug;
 import java.util.ArrayList;
 import java.util.List;
 
+import ppddl.exception.EffectException;
+import ppddl.exception.GoalException;
+import ppddl.exception.InitException;
+import ppddl.exception.NameException;
+import ppddl.exception.PreconditionException;
+import ppddl.exception.ProbabilityException;
+import ppddl.exception.RequirementsException;
+import ppddl.exception.TypeException;
 import ppddl.main.ActionSchemata;
 import ppddl.main.Atom;
 import ppddl.main.AtomSkeleton;
@@ -94,7 +102,7 @@ public class Main {
 		return requireDef;
 	}
 	
-	public static Types typesDef() throws Exception {
+	public static Types typesDef() throws TypeException, NameException {
 		Types typesDef = new Types();
 		
 		typesDef.add(new SimpleType("st1"));
@@ -114,7 +122,7 @@ public class Main {
 		return typesDef;
 	}
 	
-	public static Constants constantsDef() throws Exception {
+	public static Constants constantsDef() throws TypeException, NameException {
 		Constants constantsDef = new Constants();
 		
 		constantsDef.add(new Constant("c1"));
@@ -136,7 +144,7 @@ public class Main {
 		return constantsDef;
 	}
 	
-	public static PredicatesDef predicatesDef() throws Exception {
+	public static PredicatesDef predicatesDef() throws NameException, TypeException {
 		PredicatesDef predicatesDef = new PredicatesDef();
 		
 		Predicate p1 = new Predicate("p1");
@@ -180,7 +188,7 @@ public class Main {
 		return predicatesDef;
 	}
 	
-	public static Functions functionsDef() throws Exception {
+	public static Functions functionsDef() throws NameException, TypeException {
 		Functions functionsDef = new Functions();
 		
 		functionsDef.add(new FunctionSkeleton(new FunctionSymbol("fs1")));
@@ -217,7 +225,7 @@ public class Main {
 		return functionsDef;
 	}
 	
-	public static List<Precondition> gds() throws Exception {
+	public static List<Precondition> gds() throws NameException, PreconditionException, TypeException {
 		List<Precondition> gds = new ArrayList<Precondition>();
 		
 		gds.add(new AtomicPrecondition(new Predicate("p1")));
@@ -262,7 +270,7 @@ public class Main {
 		return gds;
 	}
 	
-	public static List<Effect> effects() throws Exception {
+	public static List<Effect> effects() throws NameException, EffectException, TypeException, ProbabilityException {
 		List<Effect> effects = new ArrayList<Effect>();
 		
 		effects.add(new PositiveAtomicEffect(new Predicate("p1")));
@@ -288,7 +296,7 @@ public class Main {
 		return effects;
 	}
 	
-	public static List<ActionSchemata> actionDefs() throws Exception {
+	public static List<ActionSchemata> actionDefs() throws NameException, ProbabilityException, PreconditionException, EffectException {
 		List<ActionSchemata> structureDefs = new ArrayList<ActionSchemata>();
 		
 		structureDefs.add(new ActionSchemata(new ActionSymbol("as1")));
@@ -302,7 +310,7 @@ public class Main {
 		return structureDefs;
 	}
 	
-	public static Domain domain() throws Exception {
+	public static Domain domain() throws TypeException, NameException, ProbabilityException, PreconditionException, EffectException, RequirementsException {
 		Domain domain = new Domain(new Name("d1"));
 		domain.setRequireDef(requireDef());
 		domain.setTypesDef(typesDef());
@@ -316,7 +324,7 @@ public class Main {
 		return domain;
 	}
 	
-	public static Objects objectsDef() throws Exception {
+	public static Objects objectsDef() throws TypeException, NameException {
 		Objects objectsDef = new Objects();
 		
 		objectsDef.add(new Constant("c1"));
@@ -338,7 +346,7 @@ public class Main {
 		return objectsDef;
 	}
 	
-	public static Init init() throws Exception {
+	public static Init init() throws NameException, InitException, ProbabilityException {
 		Init init = new Init();
 		
 		init.add(new AtomicInitFormula(new Atom(new Predicate("p1"))));
@@ -357,13 +365,13 @@ public class Main {
 		return init;
 	}
 	
-	public static Goal goal() throws Exception {
+	public static Goal goal() throws GoalException, PreconditionException, NameException {
 		Precondition gd1 = new EQ(new MyNumber(1), new Function(new FunctionSymbol("f1"), new Constant("c1"), new Variable("v1")));
 		Goal goal = new PreconditionGoal(new GoalSpec(gd1, new MyNumber(1)), new Maximize(Function.REWARD));
 		return goal;
 	}
 	
-	public static Problem problem() throws Exception {
+	public static Problem problem() throws NameException, TypeException, InitException, ProbabilityException, GoalException, PreconditionException, RequirementsException {
 		Problem problem = new Problem(new Name("p1"), new Name("d1"));
 		problem.setRequireDef(requireDef());
 		problem.setObjectsDef(objectsDef());
@@ -375,7 +383,7 @@ public class Main {
 		return problem;
 	}
 	
-	public static Domain adlDomain() throws Exception {
+	public static Domain adlDomain() throws NameException, TypeException, EffectException, PreconditionException {
 		Domain domain = new Domain("miconic");
 		
 		domain.getRequireDef().enableADL();
@@ -458,7 +466,7 @@ public class Main {
 		return domain;
 	}
 	
-	public static Problem adlProblem() throws Exception {
+	public static Problem adlProblem() throws NameException, TypeException, GoalException {
 		Problem problem = new Problem("mixed-f2-p1-u0-v0-g0-a0-n0-A0-B0-N0-F0-r0", "miconic");
 		
 		Constant p0Constant = new Constant("p0");
@@ -479,7 +487,7 @@ public class Main {
 		return problem;
 	}
 	
-	public static Domain ppddlDomain() throws Exception {
+	public static Domain ppddlDomain() throws NameException, TypeException, EffectException, ProbabilityException {
 		Domain domain = new Domain("bomb-and-toilet");
 		
 		domain.getRequireDef().enableConditionalEffects();
