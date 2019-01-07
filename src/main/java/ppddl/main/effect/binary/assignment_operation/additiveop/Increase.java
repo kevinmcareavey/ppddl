@@ -2,12 +2,13 @@ package ppddl.main.effect.binary.assignment_operation.additiveop;
 
 import ppddl.exception.EffectException;
 import ppddl.main.ArithmeticExpression;
-import ppddl.main.effect.binary.assignment_operation.AdditiveOperation;
+import ppddl.main.arithmetic_expression.Function;
+import ppddl.main.effect.binary.AssignmentOperation;
 
-public class Increase extends AdditiveOperation {
+public class Increase extends AssignmentOperation {
 	
-	public Increase(ArithmeticExpression right) throws EffectException {
-		super(right);
+	public Increase(Function left, ArithmeticExpression right) throws EffectException {
+		super(left, right);
 	}
 
 	@Override

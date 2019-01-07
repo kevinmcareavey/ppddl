@@ -278,8 +278,8 @@ public class Main {
 		effects.add(new Assign(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
 		effects.add(new ScaleUp(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
 		effects.add(new ScaleDown(new Function(new FunctionSymbol("f1")), new MyNumber(1)));
-		effects.add(new Increase(new MyNumber(1)));
-		effects.add(new Decrease(new MyNumber(1)));
+		effects.add(new Increase(new Function("f1"), new MyNumber(1)));
+		effects.add(new Decrease(new Function("f1"), new MyNumber(1)));
 		effects.add(new ConjunctionEffect(new PositiveAtomicEffect(new Predicate("p1")), new PositiveAtomicEffect(new Predicate("p2"))));
 		
 		TypedList<Variable> tl1 = new TypedList<Variable>();
